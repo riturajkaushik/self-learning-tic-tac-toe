@@ -1,7 +1,7 @@
-# self-learning-tic-tac-toe
+# Self-learning-tic-tac-toe game
 This is an unbeatable self learning Tic-Tac-Toe AI game written in python for demonstration of reinforcement learning to non-techies. The AI agent here learns to play tic-tac-toe from thousands of games played by it with itself.
 
-####Approach:
+Approach:
 
 1. First generate all the possible states of the game and possible moves for each of the states. This gives a huge number of states (more than 300000 states)
 2. Since tic-tac-toe game board is symmetric so many of states are actually similar states if rotate or taken mirror image of the board. So we remove all the duplicate states that we generated. After this we are left with only around 900 states.
