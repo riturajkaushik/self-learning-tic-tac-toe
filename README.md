@@ -12,3 +12,11 @@ Approach:
 5. The system saves all the states and corresponding moves in a *experience.dat* file
 
 Before playing with human player, the system reads the *experience.dat* file and loads the staes and corresponding moves. Now for every state in the game, the agent plays the maximum occurring moves for that state.
+
+**Self-play screenshot:**
+
+![self play screenshot: ](./screenshots/SelfLearning.png?raw=true "Self Play")
+
+**Playing with human screenshot:**
+
+![Human Play: ](./screenshots/HumanPlay.png?raw=true "Human Play")
