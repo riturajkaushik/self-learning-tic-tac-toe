@@ -1,7 +1,12 @@
-# Self-learning-tic-tac-toe game
-This is an unbeatable self learning Tic-Tac-Toe AI game written in python for demonstration of reinforcement learning to non-techies. The AI agent here learns to play tic-tac-toe from thousands of games *played by it with itself*.
+# Self-learning tic-tac-toe game agent 
 
-Approach:
+This is an unbeatable self-learning Tic-Tac-Toe AI game written in python based on **MENACE** (*for Matchbox Educable Naughts and Crosses Engine*) proposed by  Donald Michie in 1961 and 1963. Follwoing is an exerpt about MENACE from the book "Reinforcement Leaning an Introduction" by Sutton and Barto:
+
+*"MENACE consisted of a matchbox for each possible game position, each matchbox containing a number of colored beads, a different color for each possible move from that position. By drawing a bead at random from the matchbox corresponding to the current game position, one could determine MENACE’s move. When a game was over, beads were added to or removed from the boxes used during play to reinforce or punish MENACE’s decisions."*
+
+The AI agent in this program learns to play tic-tac-toe from thousands of games *played by it with itself*.
+
+Basic steps:
 
 1. First generate all the possible states of the game and possible moves for each of the states. This step generates a huge number of states (more than 300000 states)
 2. Since tic-tac-toe game board is symmetric, so many of the states are actually similar states if rotated or taken mirror image of the board. So we remove all the duplicate states that we generated. After this we are left with only around 900 states.
