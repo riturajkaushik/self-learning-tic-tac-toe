@@ -4,6 +4,8 @@ This is an unbeatable self-learning Tic-Tac-Toe AI game written in python based 
 
 *"MENACE consisted of a matchbox for each possible game position, each matchbox containing a number of colored beads, a different color for each possible move from that position. By drawing a bead at random from the matchbox corresponding to the current game position, one could determine MENACE’s move. When a game was over, beads were added to or removed from the boxes used during play to reinforce or punish MENACE’s decisions."*
 
+Here is a detailed blog post about it: [How to train matchboxes to play human level tic-tac-toe](https://riturajkaushik.github.io/2018/09/19/self-learning-tictactoe.html)
+
 The AI agent in this program learns to play tic-tac-toe from thousands of games *played by it with itself*.
 
 Basic steps:
