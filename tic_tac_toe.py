@@ -1,6 +1,7 @@
 import random
 import collections
 import os
+import sys
 
 
 def next_level(statesa, statesb, move):
@@ -8,7 +9,7 @@ def next_level(statesa, statesb, move):
         for j in range(9):
             ns = []
             if statesa[i][j]==0:
-                ns = list(statesa[i]) 
+                ns = list(statesa[i])
                 ns[j] = move
                 statesb.append(ns)
 
@@ -17,7 +18,7 @@ def flip_vertical(state):
     f_state[2] = state [0]
     f_state[5] = state [3]
     f_state[8] = state [6]
-    
+
     f_state[0] = state [2]
     f_state[3] = state [5]
     f_state[6] = state [8]
@@ -53,7 +54,7 @@ def inverse_transform_state(state, rotate_right, flip):
 
 
 def inverse_transform_action(action, rotate_right, flip):
-    
+
     rotate_right = 4 - rotate_right
     while rotate_right > 0:
         rotate_right = rotate_right - 1
@@ -73,7 +74,7 @@ def inverse_transform_action(action, rotate_right, flip):
             action = 6
         elif action == 6:
             action = 0
-    
+
     if flip == 1:
         if action == 0:
             action = 2
@@ -91,7 +92,7 @@ def inverse_transform_action(action, rotate_right, flip):
     return action
 
 def forward_transform_action(action, rotate_right, flip):
-    
+
     if flip == 1:
         if action == 0:
             action = 2
@@ -226,8 +227,8 @@ def isequal(state,present_state):
             break
     if(matched ==True):
         return True, rotation, flip
-    
-    
+
+
     temp = rotate_right(temp) #1st rotation
     rotation = rotation +1
     matched = True
@@ -237,7 +238,7 @@ def isequal(state,present_state):
             break
     if(matched ==True):
         return True, rotation, flip
-    
+
     temp = rotate_right(temp) #2nd rotation
     rotation = rotation +1
     matched = True
@@ -247,7 +248,7 @@ def isequal(state,present_state):
             break
     if(matched ==True):
         return True, rotation, flip
-    
+
     temp = rotate_right(temp) #3rd rotation
     rotation = rotation +1
     matched = True
@@ -257,7 +258,7 @@ def isequal(state,present_state):
             break
     if(matched ==True):
         return True, rotation, flip
-    
+
     temp = list(present_state)
     rotation = 0
     temp = flip_vertical(temp) #Flip
@@ -269,7 +270,7 @@ def isequal(state,present_state):
             break
     if(matched ==True):
         return True, rotation, flip
-    
+
     temp = rotate_right(temp) #1st rotation
     rotation = rotation +1
     matched = True
@@ -279,7 +280,7 @@ def isequal(state,present_state):
             break
     if(matched ==True):
         return True, rotation, flip
-    
+
     temp = rotate_right(temp) #2nd rotation
     rotation = rotation +1
     matched = True
@@ -289,7 +290,7 @@ def isequal(state,present_state):
             break
     if(matched ==True):
         return True, rotation, flip
-    
+
     temp = rotate_right(temp) #3rd rotation
     rotation = rotation +1
     matched = True
@@ -299,9 +300,9 @@ def isequal(state,present_state):
             break
     if(matched ==True):
         return True, rotation, flip
-    
+
     return False, rotation, flip
-    
+
 def display(game_state):
     gs = list(game_state)
     for i in range(len(gs)):
@@ -316,18 +317,18 @@ def display(game_state):
     line2 = gs[3:6]
     line3 = gs[6:9]
 
-    print "  ",line1[0],"  |  ",line1[1],"  |  ", line1[2]
-    print "----------------------"
-    print "  ",line2[0],"  |  ",line2[1],"  |  ", line2[2]
-    print "----------------------"
-    print "  ",line3[0],"  |  ",line3[1],"  |  ", line3[2]
+    print ("  ",line1[0],"  |  ",line1[1],"  |  ", line1[2])
+    print ("----------------------")
+    print ("  ",line2[0],"  |  ",line2[1],"  |  ", line2[2])
+    print ("----------------------")
+    print ("  ",line3[0],"  |  ",line3[1],"  |  ", line3[2])
 
-    print "\n\nMAP\n\n"
-    print "  ","0","  |  ","1","  |  ", "2"
-    print "----------------------"
-    print "  ","3","  |  ","4","  |  ", "5"
-    print "----------------------"
-    print "  ","6","  |  ","7","  |  ", "8"
+    print ("\n\nMAP\n\n")
+    print ("  ","0","  |  ","1","  |  ", "2")
+    print ("----------------------")
+    print ("  ","3","  |  ","4","  |  ", "5")
+    print ("----------------------")
+    print ("  ","6","  |  ","7","  |  ", "8")
 
 
 def learn(game_state, win, states):
@@ -343,16 +344,16 @@ def learn(game_state, win, states):
                         loop = rew  + int((9 - (len(game_state) - i - 2))/2)
                         # print "rew: " , rew
                         # print "Bonus: ", int((9 - (len(game_state) - i - 2))/2)
-                        # sss = input("sss ") 
+                        # sss = input("sss ")
                         for n in range(loop):
                             states[j][1].append(action_internal)
                         if((states[j][0])[action_internal] != 0):
-                            print "Wrong insertion"
-                            print states[j][0]
-                            print action_actual
-                            print rot, ' ', flip
-                            print action_internal
-                            sys.exit() 
+                            print ("Wrong insertion")
+                            print (states[j][0])
+                            print (action_actual)
+                            print (rot, ' ', flip)
+                            print (action_internal)
+                            sys.exit()
 
                     else:
                         loop = rew  + int((9 - (len(game_state) - i - 2))/2)
@@ -360,7 +361,7 @@ def learn(game_state, win, states):
                             if(states[j][1].count(action_internal) > 1):
                                 states[j][1].remove(action_internal)
                 if(win == 2):
-                    if((i+1) % 2 != 0):  
+                    if((i+1) % 2 != 0):
                         loop = rew  + int((9 - (len(game_state) - i - 2))/2)
                         for n in range(loop):
                             if(states[j][1].count(action_internal) > 1):
@@ -370,39 +371,39 @@ def learn(game_state, win, states):
                         for n in range(loop):
                             states[j][1].append(action_internal)
                         if((states[j][0])[action_internal] != 0):
-                            print "Wrong insertion"
-                            print states[j][0]
-                            print action_actual
-                            print rot, ' ', flip
-                            print action_internal
+                            print ("Wrong insertion")
+                            print (states[j][0])
+                            print (action_actual)
+                            print (rot, ' ', flip)
+                            print (action_internal)
                             sys.exit()
 
-    print "New experience gained"
+    print ("New experience gained")
 
 def action_epsilon_greedy(actions, epsilon):
 
     a = list(set(actions))
-    
+
     if len(a) == 1:
         return a[0]
-    
+
     best_action = max(set(actions), key=actions.count)
     random_action = random.choice(a)
-    
+
     if(random.random() > epsilon):
         return best_action
     else:
         return random_action
 
 
-def start_self_play(states, iteration):    
-    for i in range(iteration): 
-        
+def start_self_play(states, iteration):
+    for i in range(iteration):
+
         if i < iteration * 0.25:
             #random game
-            epsilon1 = 1 
+            epsilon1 = 1
             epsilon2 = 1
-        
+
         elif i < iteration * 0.5:
             #Random strategy with best opponent
             epsilon1 = 1
@@ -423,16 +424,16 @@ def start_self_play(states, iteration):
 
         game_state = [[[0,0,0,0,0,0,0,0,0],[]]]
         win = 0
-        print "\n\n\nNew Game "+ str(i)
-        print "=========="
-        print ""
-        print "epsilon1: ",epsilon1,"   epsilon2: ",epsilon2
+        print ("\n\n\nNew Game "+ str(i))
+        print ("==========")
+        print ("")
+        print ("epsilon1: ",epsilon1,"   epsilon2: ",epsilon2)
         while True:
             # print "\n\nSearching move 1...\n"
             # print "Game state: ", game_state[-1][0]
             found = False
             for s in states:
-                match, rot, flip = isequal(s[0],game_state[-1][0])    
+                match, rot, flip = isequal(s[0],game_state[-1][0])
                 if match:
                     # print "Game state: ", game_state[-1][0]
                     # print "Intr state found: ", s[0]
@@ -444,7 +445,7 @@ def start_self_play(states, iteration):
                     game_state[-1][1].append(move1_actual)
                     new_state = list(game_state[-1][0])
                     if(new_state[move1_actual] != 0 ):
-                        print "Wrong move"
+                        print ("Wrong move")
                         sys.exit()
                     new_state[move1_actual] = 1
                     # print "New State : ", new_state
@@ -453,22 +454,22 @@ def start_self_play(states, iteration):
                     # display(game_state[-1][0])
                     found = True
                     break
-            
+
             if(found == False):
-                print "Game error: Unable to find state"
+                print ("Game error: Unable to find state")
                 save_experience(states, 'log.dat')
                 sys.exit()
-            
+
             found = False
-            win = check_win(game_state[-1][0])      
-            
+            win = check_win(game_state[-1][0])
+
             if win != 0:
-                print "Won: Agent_" + str(win) 
+                print ("Won: Agent_" + str(win))
                 learn(game_state, win, states)
                 break
 
             if sum(game_state[-1][0]) == 13:
-                print "Draw"
+                print ("Draw")
                 break
 
             # print "\n\nSearching move 2...\n"
@@ -483,7 +484,7 @@ def start_self_play(states, iteration):
                     game_state[-1][1].append(move2_actual)
                     new_state = list(game_state[-1][0])
                     if(new_state[move2_actual] != 0 ):
-                        print "Wrong move"
+                        print ("Wrong move")
                         sys.exit()
                     new_state[move2_actual] = 2
                     game_state.append([new_state, []])
@@ -498,26 +499,26 @@ def start_self_play(states, iteration):
                     break
 
             if(found == False):
-                print "Game error: Unable to find state"
+                print ("Game error: Unable to find state")
                 save_experience(states, 'log.dat')
                 sys.exit()
 
             win = check_win(game_state[-1][0])
             if win != 0:
-                print "Won: Agent_" + str(win) 
+                print ("Won: Agent_" + str(win) )
                 learn(game_state, win, states)
                 break
 
 
-def start_human_play(states):    
+def start_human_play(states):
     for i in range(1):
         game_state = [[[0,0,0,0,0,0,0,0,0],[]]]
         win = 0
-        print "\n\n\nNew Game "+ str(i)
-        print "==========\n\n"
-        print ""
+        print ("\n\n\nNew Game "+ str(i))
+        print ("==========\n\n")
+        print ("")
         while True:
-            print "Machine played....."
+            print ("Machine played.....")
             for s in states:
                 match, rot, flip =  isequal(s[0],game_state[-1][0])
                 if match:
@@ -527,7 +528,7 @@ def start_human_play(states):
                     m = list(set(s[1]))
                     # print "moves: ", s[1]
                     for move in m:
-                        print move, ": Confidence ",float(s[1].count(move))/float(len(s[1])) * 100 ,"%"
+                        print (move, ": Confidence ",float(s[1].count(move))/float(len(s[1])) * 100 ,"%")
                         if(s[1].count(move) > count):
                             move1_internal = move
                             count = s[1].count(move)
@@ -543,23 +544,23 @@ def start_human_play(states):
                     # internal_state[move1_internal] = 1
                     # print "internal state: ", internal_state
                     break
-            
-            print ""
+
+            print ("")
             display(game_state[-1][0])
-            print ""
-            win = check_win(game_state[-1][0])      
+            print ("")
+            win = check_win(game_state[-1][0])
             if win != 0:
-                print "MACHINE WON" 
+                print ("MACHINE WON")
                 break
-            
+
             if sum(game_state[-1][0]) == 13:
-                print "GAME DRAW"
+                print ("GAME DRAW")
                 break
 
             new_state = list(game_state[-1][0])
             while (True):
-                print "Your move..."
-                move2 = int(input("Index: "))   
+                print ("Your move...")
+                move2 = int(input("Index: "))
                 if(new_state[move2] !=0):
                     continue
                 new_state[move2] = 2
@@ -569,13 +570,13 @@ def start_human_play(states):
 
             win = check_win(game_state[-1][0])
             if win != 0:
-                print "YOU WON !" 
+                print ("YOU WON !" )
                 break
 
             display(game_state[-1][0])
-            print ""
+            print ("")
             if sum(game_state[-1][0]) == 13:
-                print "GAME DRAW"
+                print ("GAME DRAW")
                 break
 
 
@@ -603,7 +604,7 @@ def load_experience(file):
             states.append([dat[i], dat[i+1]])
 
     return states
-    
+
 ##############################################################
 states1 = [[1,0,0,0,0,0,0,0,0], [0,1,0,0,0,0,0,0,0], [0,0,0,0,1,0,0,0,0]]
 states2 = []
@@ -616,55 +617,52 @@ states8 = []
 states9 = []
 
 try:
-    print "Trying to load experience.dat.."
+    print ("Trying to load experience.dat..")
     states = load_experience('experience.dat')
 except:
-    print "STATUS: experience.dat not found."
-    print "Generating states..."
+    print ("STATUS: experience.dat not found.")
+    print ("Generating states...")
 
     next_level(states1,states2,2)
-    print "1st level state reduction.."
+    print ("1st level state reduction..")
     states2 = delete_duplicates(states2)
 
     next_level(states2,states3,1)
-    print "2nd level state reduction.."
+    print ("2nd level state reduction..")
     states3 = delete_duplicates(states3)
 
     next_level(states3,states4,2)
-    print "3rd level state reduction.."
+    print ("3rd level state reduction..")
     states4 = delete_duplicates(states4)
 
     next_level(states4,states5,1)
-    print "4th level state reduction.."
+    print ("4th level state reduction..")
     states5 = delete_duplicates(states5)
 
     next_level(states5,states6,2)
-    print "5th level state reduction.."
+    print ("5th level state reduction..")
     states6 = delete_duplicates(states6)
 
     next_level(states6,states7,1)
-    print "6th level state reduction.."
+    print ("6th level state reduction..")
     states7 = delete_duplicates(states7)
 
     next_level(states7,states8,2)
-    print "7th level state reduction.."
+    print ("7th level state reduction..")
     states8 = delete_duplicates(states8)
 
     next_level(states8,states9,1)
-    print "8th level state reduction.."
+    print ("8th level state reduction..")
     states9 = delete_duplicates(states9)
 
     states = states1 + states2 + states3 + states4 + states5 + states6 + states7 + states8 + states8
     states = set_random_moves(states)
     states = states + [[[0,0,0,0,0,0,0,0,0],[0,0,1,1,4,4]]]
     save_experience(states, 'zero_experience.dat')
-    print "No of state: ", len(states)
+    print ("No of state: ", len(states))
 
 ####################################################################################################
 
 # start_self_play(states, 10000)
 # save_experience(states, 'experience.dat')
 start_human_play(states)
-
-
-
