@@ -663,6 +663,6 @@ except:
 
 ####################################################################################################
 
-# start_self_play(states, 10000)
-# save_experience(states, 'experience.dat')
+#start_self_play(states, 100)
+#save_experience(states, 'experience.dat')
 start_human_play(states)
